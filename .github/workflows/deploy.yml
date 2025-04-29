@@ -18,7 +18,7 @@ jobs:
       
       # 构建项目
       - name: Build with VitePress
-        run: npm run build
+        run: npm run docs:build
 
       # 部署到GitHub Pages
       - name: Deploy to GitHub Pages
