@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 明确指定写入仓库内容的权限
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -24,6 +26,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
-          GITHUB_TOKEN: $GITHUB_TOKEN
-          BRANCH: main  # 或 main，根据你的GitHub Pages设置
-          FOLDER: .vitepress/dist  # 指定部署的文件夹
+          token: ${{ secrets.CUSTOM_DEPLOY_TOKEN }}  # 使用自定义的 Deploy Token
+          branch: main  # 或 main，根据你的GitHub Pages设置
+          folder: .vitepress/dist  # 指定部署的文件夹
