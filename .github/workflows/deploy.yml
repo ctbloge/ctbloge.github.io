@@ -1,22 +1,22 @@
 name: Deploy to GitHub Pages
-
+ 
 on:
   push:
-    branches:
-      - main
-
+    branches: [main] # 或者你想要自动部署的分支名
+  workflow_dispatch: # 允许手动触发工作流
+ 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Install dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
-      - name: Deploy
-        uses: JamesIves/github-pages-dePLOY@4.2.1
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies and build VitePress site
+        run: |
+          npm install
+          npm run docs:build # 确保你的构建命令正确无误
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3 # 使用一个GitHub Actions来部署到GitHub Pages
         with:
-          target_branch: main
-          globs: |
-            dist/**
+          github_token: ${{ secrets.GITHUB_TOKEN }} # 自动生成的一个token，用于GitHub Actions认证
+          publish_dir: .vitepress/dist # 确保这与你的构建输出目录一致
