@@ -26,6 +26,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
-          token: ${{ secrets.CUSTOM_DEPLOY_TOKEN }}  # 使用自定义的 Deploy Token
+          token: ${{ secrets.GITHUB_TOKEN }}   # 使用自定义的 Deploy Token
           branch: main  # 或 main，根据你的GitHub Pages设置
           folder: .vitepress/dist  # 指定部署的文件夹
