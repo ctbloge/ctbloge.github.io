@@ -105,16 +105,6 @@ export default defineConfig({
       ]
     },
     {
-      "text": "可视化",
-      "collapsed": false,
-      "items": [
-        {
-          "text": "用 ECharts 做网站数据统计报表，告别第三方流量统计平台",
-          "link": "/blog/Django/ECharts-for-web"
-        }
-      ]
-    },
-    {
       "text": "灾备方案",
       "collapsed": false,
       "items": [
