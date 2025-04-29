@@ -1,35 +1,22 @@
-name: Deploy
+name: Deploy to GitHub Pages
+
 on:
-  workflow_dispatch: {}
   push:
     branches:
       - main
-    paths:
-      - '.vitepress/config.mts'  # 仅当配置文件修改才出发动作，保证API更新的时候不会频繁触发
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 16
-          cache: npm
-      - run: npm ci
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
       - name: Build
-        run: npm run docs:build
-      - uses: actions/configure-pages@v4
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: .vitepress/dist
+        run: npm run build
       - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: JamesIves/github-pages-dePLOY@4.2.1
+        with:
+          target_branch: main
+          globs: |
+            dist/**
