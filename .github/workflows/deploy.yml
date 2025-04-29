@@ -26,4 +26,4 @@ jobs:
         with:
           GITHUB_TOKEN: $GITHUB_TOKEN
           BRANCH: main  # 或 main，根据你的GitHub Pages设置
-          FOLDER: ./vitepress/dist  # 指定部署的文件夹
+          FOLDER: .vitepress/dist  # 指定部署的文件夹
