@@ -1,0 +1,33 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.vitepress/config.mts'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 明确指定写入仓库内容的权限
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 安装依赖
+      - name: Install dependencies
+        run: npm install
+
+      # 构建项目
+      - name: Build with VitePress
+        run: npm run docs:build
+
+      # 部署到GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}   # 使用自定义的 Deploy Token
+          branch: main  # 或 main，根据你的GitHub Pages设置
+          folder: .vitepress/dist  # 指定部署的文件夹
